@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { Month } from "./Components/Month/Month";
+import { Days } from "./Components/Days/Days";
 
 class App extends Component {
   constructor(props) {
     super(props);
     const newDate = new Date().getTime();
     this.state = {
-      date: new Date(),
-
+      date: new Date()
     };
 
     this.newDay = this.newDay.bind(this);
@@ -53,7 +53,9 @@ class App extends Component {
               getNextMonth={this.getNextMonth}
               date={this.state.date}
             />
-
+            <Days
+              date={this.state.date}
+            />
           </div>
           <div className="col s4" />
         </div>
