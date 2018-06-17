@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { Month } from "./Components/Month/Month";
-import { Days } from "./Components/Days/Days";
+import Days from "./Components/Days/Days";
 
 class App extends Component {
   constructor(props) {
