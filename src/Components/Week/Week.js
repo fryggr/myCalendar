@@ -12,7 +12,7 @@ class Week extends React.Component {
                 <Day
                   day={el}
                 />
-              ) 
+              )
             }
 	      </tr>
 	    );

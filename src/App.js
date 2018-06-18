@@ -30,6 +30,7 @@ class App extends Component {
     let currentDate = this.state.date;
     currentDate.setMonth(currentDate.getMonth() + 1);
     this.setState({ date: currentDate });
+  
   }
 
   getPrevMonth() {

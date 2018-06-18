@@ -10,10 +10,18 @@ class Days extends React.Component {
 
     this.fillDays = this.fillDays.bind(this);
 
-    this.state = { 
+    this.state = {
       days: []
     };
   }
+
+  // componentDidMount() {
+  //   this.fillDays();
+  // }
+  // componentWillUpdate() {
+  //   console.log("!");
+  //   this.fillDays();
+  // }
 
   fillDays() {
 
@@ -66,9 +74,6 @@ class Days extends React.Component {
       }
 
       console.log(days);
-      this.setState({ 
-        days: days
-      });
       return days
   }
 
@@ -78,7 +83,7 @@ class Days extends React.Component {
         <table>
           <thead>
             <tr>
-              <th onClick={this.fillDays}>пн</th>
+              <th >пн</th>
               <th>вт</th>
               <th>ср</th>
               <th>чт</th>
@@ -89,11 +94,11 @@ class Days extends React.Component {
           </thead>
           <tbody>
             {
-              this.state.days.map(el =>
+              this.fillDays().map(el =>
                 <Week
                   week={el}
                 />
-              ) 
+              )
             }
           </tbody>
         </table>
