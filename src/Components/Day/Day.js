@@ -1,11 +1,6 @@
-import React from "react";
-// import "./Day.css";
+import React, { Component } from "react";
 
-class Day extends React.Component {
-
-	constructor(props) {
-    super(props);
-  }
+class Day extends Component {
 
 	render() {
 	    return (

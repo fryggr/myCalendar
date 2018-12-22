@@ -1,0 +1,29 @@
+.Hours__item{
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.Hours__line{
+    width: 100%;
+    height: 1px;
+    background-color: black;
+    margin-left: 15px
+}
+
+.Hours__text{
+    width: 20px
+}
+
+.Hours__fill{
+    position: absolute;
+    width: calc(100% - 34px);
+    height: 100%;
+    left: 34px;
+    top: 20px;
+}
+
+.Hours__fill.active{
+    background: red;
+}

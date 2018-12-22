@@ -1,16 +1,16 @@
-import React from "react";
-// import "./Week.css";
+import React, { Component } from "react";
 import Day from "../Day/Day";
 
-class Week extends React.Component {
+class Week extends Component {
 
 	render() {
 	    return (
 	      <tr>
 			{
-              this.props.week.map(el =>
+              this.props.week.map((el, index) =>
                 <Day
-                  day={el}
+                  day = {el}
+				  key = {index}
                 />
               )
             }

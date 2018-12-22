@@ -1,29 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Days.css";
 import Week from "../Week/Week";
 
 
-class Days extends React.Component {
+class Days extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.fillDays = this.fillDays.bind(this);
-
-    this.state = {
+  state = {
       days: []
-    };
   }
 
-  // componentDidMount() {
-  //   this.fillDays();
-  // }
-  // componentWillUpdate() {
-  //   console.log("!");
-  //   this.fillDays();
-  // }
-
-  fillDays() {
+  fillDays = () => {
 
     let propDate = this.props.date;
 
@@ -94,9 +80,10 @@ class Days extends React.Component {
           </thead>
           <tbody>
             {
-              this.fillDays().map(el =>
+              this.fillDays().map((el, index) =>
                 <Week
-                  week={el}
+                  week = {el}
+                  key = {index}
                 />
               )
             }

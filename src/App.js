@@ -1,26 +1,18 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Month } from "./Components/Month/Month";
 import Days from "./Components/Days/Days";
+import Hours from "./Components/Hours/Hours";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    const newDate = new Date().getTime();
-    this.state = {
-      date: new Date()
-    };
 
-    this.newDay = this.newDay.bind(this);
-    this.getNextMonth = this.getNextMonth.bind(this);
-    this.getPrevMonth = this.getPrevMonth.bind(this);
+  state = {
+      date: new Date()
   }
 
   newDay() {
     let currentDate = this.state.date;
     let newDay = currentDate.getDay();
-    console.log(this.day);
     if (newDay === this.day) {
       return newDay;
     }
@@ -30,7 +22,7 @@ class App extends Component {
     let currentDate = this.state.date;
     currentDate.setMonth(currentDate.getMonth() + 1);
     this.setState({ date: currentDate });
-  
+
   }
 
   getPrevMonth() {
@@ -47,7 +39,10 @@ class App extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col s4" />
+          <div className="col s8">
+              <Hours
+              />
+          </div>
           <div className="col s4">
             <Month
               getPrevMonth={this.getPrevMonth}
