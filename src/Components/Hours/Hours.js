@@ -8,10 +8,7 @@ class Hours extends Component {
     }
 
     getHours() {
-        let hours = []
-        for (let i = 0; i < 24; i++) {
-            hours.push(i)
-        }
+        const { hours } = this.props
         return hours.map((hour, index) => (
             <div
                 className = "Hours__item"

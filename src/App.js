@@ -35,12 +35,27 @@ class App extends Component {
     return <td>{number}</td>;
   }
 
+  getHours() {
+      let hours = []
+      for (let i = 0; i < 24; i++) {
+          hours.push(i)
+      }
+      return hours
+  }
+
+  selectHours() {
+      return this.getHours().map(hour => (
+          <option value={hour}>{hour}</option>
+      ))
+  }
+
   render() {
     return (
       <div className="container">
         <div className="row">
           <div className="col s8">
               <Hours
+                  hours = {this.getHours()}
               />
           </div>
           <div className="col s4">
@@ -53,7 +68,18 @@ class App extends Component {
               date={this.state.date}
             />
           </div>
-          <div className="col s4" />
+          <div className="col s4">
+              <h3>Новое событие</h3>
+              <input type="text" placeholder="Название события"/>
+              <select className="browser-default">
+                  <option value="" disabled selected>Начало события</option>
+                  {this.selectHours()}
+              </select>
+              <select className="browser-default">
+                  <option value="" disabled selected>Конец события</option>
+                  {this.selectHours()}
+              </select>
+          </div>
         </div>
       </div>
     );
