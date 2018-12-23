@@ -4,7 +4,12 @@ import './Hours.css'
 class Hours extends Component {
 
     render() {
-        return <div className = "Hours">{this.getHours()}</div>
+        const { style } = this.props
+        console.log(style);
+        return <div className = "Hours">
+            <div className="Hours__fill" style={style}></div>
+            {this.getHours()}
+        </div>
     }
 
     getHours() {
@@ -16,10 +21,12 @@ class Hours extends Component {
             >
             <div className="Hours__text">{hour}</div>
             <div className="Hours__line"></div>
-            <div className="Hours__fill"></div>
+
             </div>
         ))
     }
+
+
 }
 
 export default Hours

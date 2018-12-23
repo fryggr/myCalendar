@@ -59,7 +59,6 @@ class Days extends Component {
         }
       }
 
-      console.log(days);
       return days
   }
 

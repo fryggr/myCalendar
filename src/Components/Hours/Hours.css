@@ -1,3 +1,7 @@
+.Hours{
+    position: relative;
+}
+
 .Hours__item{
     padding: 10px 0;
     display: flex;

@@ -7,7 +7,11 @@ import Hours from "./Components/Hours/Hours";
 class App extends Component {
 
   state = {
-      date: new Date()
+      date: new Date(),
+      eventName: '',
+      eventStart: '',
+      eventEnd: '',
+      style: {}
   }
 
   newDay() {
@@ -44,9 +48,27 @@ class App extends Component {
   }
 
   selectHours() {
-      return this.getHours().map(hour => (
-          <option value={hour}>{hour}</option>
+      return this.getHours().map((hour, index) => (
+          <option value={hour} key={index}>{hour}</option>
       ))
+  }
+
+  getFill = () => {
+      const { eventStart, eventEnd } = this.state
+      // top: 20px
+      const top = eventStart * 41 + 20
+      const height = Math.abs(eventEnd - eventStart) * 41
+      console.log(top, height);
+      const style = {
+          top: top,
+          height: height,
+          background: 'red'
+      }
+      this.setState({ style: style })
+  }
+
+  handleChange = (type) => (event) => {
+    this.setState({[type]: event.target.value});
   }
 
   render() {
@@ -56,6 +78,7 @@ class App extends Component {
           <div className="col s8">
               <Hours
                   hours = {this.getHours()}
+                  style = {this.state.style}
               />
           </div>
           <div className="col s4">
@@ -70,15 +93,30 @@ class App extends Component {
           </div>
           <div className="col s4">
               <h3>Новое событие</h3>
-              <input type="text" placeholder="Название события"/>
-              <select className="browser-default">
-                  <option value="" disabled selected>Начало события</option>
-                  {this.selectHours()}
-              </select>
-              <select className="browser-default">
-                  <option value="" disabled selected>Конец события</option>
-                  {this.selectHours()}
-              </select>
+              <form>
+                  <input
+                      type="text"
+                      placeholder="Название события"
+                      value={this.state.eventName}
+                      onChange={this.handleChange('eventName')}/>
+                  <select
+                      className="browser-default"
+                      value={this.state.eventStart}
+                      onChange={this.handleChange('eventStart')}
+                  >
+                      <option value="" disabled selected>Начало события</option>
+                      {this.selectHours()}
+                  </select>
+                  <select
+                      className="browser-default"
+                      value={this.state.eventEnd}
+                      onChange={this.handleChange('eventEnd')}
+                  >
+                      <option value="" disabled selected>Конец события</option>
+                      {this.selectHours()}
+                  </select>
+                  <button type="button" onClick={this.getFill} className="btn waves-effect waves-light btn-small">Создать событие</button>
+              </form>
           </div>
         </div>
       </div>
