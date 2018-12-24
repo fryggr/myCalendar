@@ -55,14 +55,12 @@ class App extends Component {
 
   getFill = () => {
       const { eventStart, eventEnd } = this.state
-      // top: 20px
       const top = eventStart * 41 + 20
       const height = Math.abs(eventEnd - eventStart) * 41
-      console.log(top, height);
       const style = {
           top: top,
           height: height,
-          background: 'red'
+          background: '#9c27b03b'
       }
       this.setState({ style: style })
   }
@@ -79,6 +77,7 @@ class App extends Component {
               <Hours
                   hours = {this.getHours()}
                   style = {this.state.style}
+                  name = {this.state.eventName}
               />
           </div>
           <div className="col s4">

@@ -4,10 +4,11 @@ import './Hours.css'
 class Hours extends Component {
 
     render() {
-        const { style } = this.props
-        console.log(style);
+        const { style, name } = this.props
         return <div className = "Hours">
-            <div className="Hours__fill" style={style}></div>
+            <div className="Hours__fill" style={style}>
+                {name}
+            </div>
             {this.getHours()}
         </div>
     }
