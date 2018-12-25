@@ -11,7 +11,9 @@ class App extends Component {
       eventName: '',
       eventStart: '',
       eventEnd: '',
-      events: []
+      eventID: '',
+      events: [],
+      prevCrossing: {}
   }
 
   newDay() {
@@ -57,19 +59,39 @@ class App extends Component {
       const { eventStart, eventEnd } = this.state
       const top = eventStart * 60 + 30
       const height = Math.abs(eventEnd - eventStart) * 60;
+      let eventID = (((1+Math.random())*0x10000)|0).toString(16).substring(1)
       const style = {
           top: top,
           height: height,
-          background: '#9c27b03b'
+          background: '#9c27b061'
       }
       const events = this.state.events.slice()
-      events.push({style: style, name: this.state.eventName})
-      this.setState({ events: events })
+      this.eventsCrossing() ? eventID = this.state.eventID : eventID
+      events.push({
+          id: eventID,
+          style: style,
+          name: this.state.eventName,
+          start: this.state.eventStart,
+          end: this.state.eventEnd,
+          isCrossing: this.eventsCrossing()
+      })
+      this.setState({ events: events, eventID: eventID })
   }
 
   handleChange = (type) => (event) => {
-      console.log(event.target.value);
+      // const array = event.target.value.split(':')
     this.setState({[type]: event.target.value});
+  }
+
+  eventsCrossing = () => {
+      const events = this.state.events.slice()
+      events.forEach(event => {
+          if (event.end > this.state.eventStart) {
+              console.log('Events crossing');
+             return true
+          }
+          else return false
+      })
   }
 
   render() {
@@ -116,7 +138,7 @@ class App extends Component {
                       <option value="" disabled selected>Конец события</option>
                       {this.selectHours()}
                   </select>
-                  <input type="time" onChange={this.handleChange('eventTime')}/>
+                  {/*<input type="time" onChange={this.handleChange('eventTime')}/>*/}
                   <button type="button" onClick={this.getFill} className="btn waves-effect waves-light btn-small">Создать событие</button>
               </form>
           </div>

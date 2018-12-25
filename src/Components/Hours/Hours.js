@@ -6,13 +6,47 @@ class Hours extends Component {
     render() {
         const { events } = this.props
         return <div className = "Hours">
-            {events.map(event => (
-                <div className="Hours__fill" style={event.style}>
-                    {event.name}
-                </div>
-            ))}
+            <div className="Hours__wrapper">
+                {events.map((event) => (
+                    <div className="Hours__fill" style={event.style}>
+                        {event.name}
+                    </div>
+                ))}
+             </div>
+            {/*this.getFill()*/}
             {this.getHours()}
         </div>
+    }
+
+    getFill = () => {
+        // const { events } = this.props
+        //
+        // if (events.length !== 0)
+        //     {
+        //         let prevID = events[0].id
+        //         let prevIndex = 0
+        //
+        //         for(let i = prevIndex; i < events.length; i++){
+        //             return{
+        //                 <div className="Hours__wrapper">
+        //                     return {  events.map((event, index) => {
+        //
+        //                         event.id === prevID ? (
+        //                             console.log(event),
+        //                             <div className="Hours__fill" style={event.style}>
+        //                                 {event.name}
+        //                             </div>,
+        //                             prevID = event.id
+        //                         ) : (
+        //                             prevIndex = index,
+        //                             prevID = event.id
+        //                         )
+        //                     })}
+        //                 </div>
+        //             }
+        //         }
+        //     }
+        //     else return null
     }
 
     getHours() {
