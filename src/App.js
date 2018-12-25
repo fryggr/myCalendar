@@ -55,8 +55,8 @@ class App extends Component {
 
   getFill = () => {
       const { eventStart, eventEnd } = this.state
-      const top = eventStart * 41 + 22 + Number(eventStart)
-      const height = (Math.abs(eventEnd - eventStart) * 41) + Math.abs(eventEnd - eventStart - 1);
+      const top = eventStart * 60 + 30
+      const height = Math.abs(eventEnd - eventStart) * 60;
       const style = {
           top: top,
           height: height,
@@ -68,6 +68,7 @@ class App extends Component {
   }
 
   handleChange = (type) => (event) => {
+      console.log(event.target.value);
     this.setState({[type]: event.target.value});
   }
 
@@ -115,6 +116,7 @@ class App extends Component {
                       <option value="" disabled selected>Конец события</option>
                       {this.selectHours()}
                   </select>
+                  <input type="time" onChange={this.handleChange('eventTime')}/>
                   <button type="button" onClick={this.getFill} className="btn waves-effect waves-light btn-small">Создать событие</button>
               </form>
           </div>
