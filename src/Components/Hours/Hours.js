@@ -4,11 +4,13 @@ import './Hours.css'
 class Hours extends Component {
 
     render() {
-        const { style, name } = this.props
+        const { events } = this.props
         return <div className = "Hours">
-            <div className="Hours__fill" style={style}>
-                {name}
-            </div>
+            {events.map(event => (
+                <div className="Hours__fill" style={event.style}>
+                    {event.name}
+                </div>
+            ))}
             {this.getHours()}
         </div>
     }

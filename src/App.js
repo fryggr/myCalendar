@@ -11,7 +11,7 @@ class App extends Component {
       eventName: '',
       eventStart: '',
       eventEnd: '',
-      style: {}
+      events: []
   }
 
   newDay() {
@@ -55,14 +55,16 @@ class App extends Component {
 
   getFill = () => {
       const { eventStart, eventEnd } = this.state
-      const top = eventStart * 41 + 20
-      const height = Math.abs(eventEnd - eventStart) * 41
+      const top = eventStart * 41 + 22 + Number(eventStart)
+      const height = (Math.abs(eventEnd - eventStart) * 41) + Math.abs(eventEnd - eventStart - 1);
       const style = {
           top: top,
           height: height,
           background: '#9c27b03b'
       }
-      this.setState({ style: style })
+      const events = this.state.events.slice()
+      events.push({style: style, name: this.state.eventName})
+      this.setState({ events: events })
   }
 
   handleChange = (type) => (event) => {
@@ -76,8 +78,7 @@ class App extends Component {
           <div className="col s8">
               <Hours
                   hours = {this.getHours()}
-                  style = {this.state.style}
-                  name = {this.state.eventName}
+                  events = {this.state.events}
               />
           </div>
           <div className="col s4">
