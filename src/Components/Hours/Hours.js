@@ -5,6 +5,7 @@ class Hours extends Component {
 
     render() {
         const { events } = this.props
+        console.log(events);
         return <div className = "Hours">
             <div className="Hours__wrapper">
                 {events.map((event) => (

@@ -12,7 +12,32 @@ class App extends Component {
       eventStart: '',
       eventEnd: '',
       eventID: '',
-      events: [],
+      events: [
+          {
+              id: 'c3ef',
+              style: {
+                top: 270,
+                height: 180,
+                background: 'rgba(156, 39, 176, 0.38)'
+              },
+              name: 'Test',
+              start: '4',
+              end: '7',
+              isCrossing: false
+          },
+          {
+              id: '0f2a',
+              style: {
+                top: 210,
+                height: 180,
+                background: 'rgba(156, 39, 176, 0.38)'
+              },
+              name: 'Test1',
+              start: '3',
+              end: '6',
+              isCrossing: false
+          }
+      ],
       prevCrossing: {}
   }
 
@@ -66,6 +91,7 @@ class App extends Component {
           background: '#9c27b061'
       }
       const events = this.state.events.slice()
+      console.log(events, this.eventsCrossing());
       this.eventsCrossing() ? eventID = this.state.eventID : eventID
       events.push({
           id: eventID,
@@ -86,7 +112,7 @@ class App extends Component {
   eventsCrossing = () => {
       const events = this.state.events.slice()
       events.forEach(event => {
-          if (event.end > this.state.eventStart) {
+          if ((event.end <= this.state.eventEnd && event.start <= this.state.eventStart) || (event.start >= this.state.eventStart && event.end >= this.state.eventEnd)) {
               console.log('Events crossing');
              return true
           }
