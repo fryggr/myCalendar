@@ -91,8 +91,7 @@ class App extends Component {
           background: '#9c27b061'
       }
       const events = this.state.events.slice()
-      console.log(events, this.eventsCrossing());
-      this.eventsCrossing() ? eventID = this.state.eventID : eventID
+      this.eventsCrossing() ? eventID = this.eventsCrossing() : eventID
       events.push({
           id: eventID,
           style: style,
@@ -101,6 +100,17 @@ class App extends Component {
           end: this.state.eventEnd,
           isCrossing: this.eventsCrossing()
       })
+      events.sort((a, b) => {
+          // a.id < b.id ? 1 : a.id > b.id ? -1 : 0
+          if (a.id < b.id) {
+            return 1;
+          }
+          if (a.id > b.id) {
+            return -1;
+          }
+          return 0;
+        });
+      console.log(events);
       this.setState({ events: events, eventID: eventID })
   }
 
@@ -111,13 +121,18 @@ class App extends Component {
 
   eventsCrossing = () => {
       const events = this.state.events.slice()
-      events.forEach(event => {
-          if ((event.end <= this.state.eventEnd && event.start <= this.state.eventStart) || (event.start >= this.state.eventStart && event.end >= this.state.eventEnd)) {
-              console.log('Events crossing');
-             return true
+      for(let i = 0; i < events.length; i++){
+          if(
+             ( (this.state.eventEnd <= events[i].end && events[i].start >= this.state.eventStart) &&
+              (events[i].end >= this.state.eventStart && events[i].start <= this.state.eventEnd) ) ||
+              ( (this.state.eventEnd >= events[i].end && this.state.eventStart >= events[i].start) &&
+              (events[i].end >= this.state.eventStart && events[i].start <= this.state.eventEnd) )
+          )
+            {
+             return events[i].id
           }
           else return false
-      })
+      }
   }
 
   render() {
