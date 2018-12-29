@@ -24,8 +24,9 @@
     /* position: absolute; */
     position: relative;
     width: 100%;
+    /* width: calc(100% - 34px); */
     height: 0;
-    left: 34px;
+    /* left: 34px; */
     top: 20px;
     min-height: 30px;
     border-left: 2px solid #9c27b09e;
@@ -38,8 +39,10 @@
 .Hours__wrapper{
     position: absolute;
     width: calc(100% - 34px);
+    left: 34px;
+    /* width: 100%; */
     /* height: 100%; */
-    display: flex;
+    /* display: flex; */
 }
 
 .Hours__fill.active{

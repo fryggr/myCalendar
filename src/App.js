@@ -18,22 +18,40 @@ class App extends Component {
               style: {
                 top: 270,
                 height: 180,
-                background: 'rgba(156, 39, 176, 0.38)'
+                background: 'rgba(156, 39, 176, 0.38)',
+                width: '100%',
+                left: 0
               },
               name: 'Test',
               start: '4',
               end: '7',
-              isCrossing: false
+              isCrossing: true
           },
           {
-              id: '0f2a',
+              id: 'c3ef',
               style: {
                 top: 210,
                 height: 180,
-                background: 'rgba(156, 39, 176, 0.38)'
+                background: 'rgba(156, 39, 176, 0.38)',
+                width: '100%',
+                left: 0
               },
               name: 'Test1',
               start: '3',
+              end: '6',
+              isCrossing: true
+          },
+          {
+              id: 'c3ef',
+              style: {
+                top: 270,
+                height: 120,
+                background: 'rgba(156, 39, 176, 0.38)',
+                width: '100%',
+                left: 0
+              },
+              name: 'Test3',
+              start: '4',
               end: '6',
               isCrossing: false
           }
@@ -88,6 +106,7 @@ class App extends Component {
       const style = {
           top: top,
           height: height,
+          width: '100%',
           background: '#9c27b061'
       }
       const events = this.state.events.slice()
@@ -101,7 +120,6 @@ class App extends Component {
           isCrossing: this.eventsCrossing()
       })
       events.sort((a, b) => {
-          // a.id < b.id ? 1 : a.id > b.id ? -1 : 0
           if (a.id < b.id) {
             return 1;
           }
@@ -113,6 +131,7 @@ class App extends Component {
       console.log(events);
       this.setState({ events: events, eventID: eventID })
   }
+
 
   handleChange = (type) => (event) => {
       // const array = event.target.value.split(':')
