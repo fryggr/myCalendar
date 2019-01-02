@@ -21,8 +21,8 @@
 }
 
 .Hours__fill{
-    /* position: absolute; */
-    position: relative;
+    position: absolute;
+    /* position: relative; */
     width: 100%;
     /* width: calc(100% - 34px); */
     height: 0;

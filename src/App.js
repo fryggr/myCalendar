@@ -109,7 +109,7 @@ class App extends Component {
           width: '100%',
           background: '#9c27b061'
       }
-      const events = this.state.events.slice()
+      let events = JSON.parse(JSON.stringify(this.state.events));
       this.eventsCrossing() ? eventID = this.eventsCrossing() : eventID
       events.push({
           id: eventID,
@@ -119,6 +119,14 @@ class App extends Component {
           end: this.state.eventEnd,
           isCrossing: this.eventsCrossing()
       })
+
+      events = this.sortEvents(events)
+      console.log(events);
+      this.setState({ events: events, eventID: eventID })
+  }
+
+  sortEvents = (events) => {
+
       events.sort((a, b) => {
           if (a.id < b.id) {
             return 1;
@@ -128,8 +136,28 @@ class App extends Component {
           }
           return 0;
         });
-      console.log(events);
-      this.setState({ events: events, eventID: eventID })
+
+        let prevID = events[0].id
+        let eventsCount = 0;
+        for (let i = 0; i < events.length; i++) {
+            if(events[i].id === prevID){
+                eventsCount++
+            }
+            else {
+                break;
+            }
+        }
+        const width = 100/eventsCount + '%';
+        // const width = parseInt(events[0].style.width)/eventsCount + '%';
+
+        events.forEach((event, index) => {
+            console.log(event.style.width);
+            event.style.width = width
+            event.style.left = parseFloat(event.style.width)*(index) + '%'
+        })
+
+        return events
+
   }
 
 
@@ -142,16 +170,21 @@ class App extends Component {
       const events = this.state.events.slice()
       for(let i = 0; i < events.length; i++){
           if(
-             ( (this.state.eventEnd <= events[i].end && events[i].start >= this.state.eventStart) &&
-              (events[i].end >= this.state.eventStart && events[i].start <= this.state.eventEnd) ) ||
-              ( (this.state.eventEnd >= events[i].end && this.state.eventStart >= events[i].start) &&
-              (events[i].end >= this.state.eventStart && events[i].start <= this.state.eventEnd) )
+             ( (this.state.eventEnd < events[i].end && events[i].start > this.state.eventStart) &&
+              (events[i].end > this.state.eventStart && events[i].start < this.state.eventEnd) ) ||
+              ( (this.state.eventEnd > events[i].end && this.state.eventStart > events[i].start) &&
+              (events[i].end > this.state.eventStart && events[i].start < this.state.eventEnd) )
           )
             {
              return events[i].id
           }
           else return false
       }
+  }
+
+  componentWillMount() {
+      const events = this.sortEvents(this.state.events)
+      this.setState({ events: events })
   }
 
   render() {
