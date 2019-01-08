@@ -110,6 +110,7 @@ class App extends Component {
           background: '#9c27b061'
       }
       let events = JSON.parse(JSON.stringify(this.state.events));
+      console.log(this.eventsCrossing());
       this.eventsCrossing() ? eventID = this.eventsCrossing() : eventID
       events.push({
           id: eventID,
@@ -120,8 +121,7 @@ class App extends Component {
           isCrossing: this.eventsCrossing()
       })
 
-      events = this.sortEvents(events)
-      // console.log(events);
+      this.eventsCrossing() ? events = this.sortEvents(events) : events
       this.setState({ events: events, eventID: eventID })
   }
 
@@ -159,11 +159,11 @@ class App extends Component {
             for (let i = 0; i < events.length; i++) {
 
                 if( arrayCounts[j].id === events[i].id ) {
-                    for(let k=prevIndexSame; k<arrayCounts[j].count; k++) {
+                    for(let k = prevIndexSame; k < arrayCounts[j].count; k++) {
                         width = 100/arrayCounts[j].count + '%';
-                        left = parseFloat(width)*(k) + '%'
-                        events[i].style.width = width
-                        events[i].style.left = left
+                        left = parseFloat(width)*(k) + '%';
+                        events[i].style.width = width;
+                        events[i].style.left = left;
                         prevIndexSame = k+1;
                         break;
                     }
@@ -190,6 +190,7 @@ class App extends Component {
 
   eventsCrossing = () => {
       const events = this.state.events.slice()
+      let n = 0;
       for(let i = 0; i < events.length; i++){
           // console.log(events[i]);
           if(
@@ -200,7 +201,10 @@ class App extends Component {
           )
             {
             console.log('events crossing');
-             return events[i].id
+            n++;
+            if(n > 1) return false
+            else return events[i].id
+             // return events[i].id
           }
           else if(i === events.length-1) {
               console.log('events not crossing');
