@@ -121,7 +121,7 @@ class App extends Component {
       })
 
       events = this.sortEvents(events)
-      console.log(events);
+      // console.log(events);
       this.setState({ events: events, eventID: eventID })
   }
 
@@ -139,22 +139,44 @@ class App extends Component {
 
         let prevID = events[0].id
         let eventsCount = 0;
+        let arrayCounts = []
         for (let i = 0; i < events.length; i++) {
             if(events[i].id === prevID){
                 eventsCount++
+                if(i === events.length - 1) arrayCounts.push({ id: prevID, count: eventsCount })
             }
             else {
-                break;
+                arrayCounts.push({ id: prevID, count: eventsCount })
+                eventsCount = 1
+                prevID = events[i].id
+                // break;
             }
         }
-        const width = 100/eventsCount + '%';
-        // const width = parseInt(events[0].style.width)/eventsCount + '%';
 
-        events.forEach((event, index) => {
-            console.log(event.style.width);
-            event.style.width = width
-            event.style.left = parseFloat(event.style.width)*(index) + '%'
-        })
+        let { x: width, x: prevIndex, x: left, x: prevIndexSame } = { x: 0 };
+
+        for (let j = prevIndex; j < arrayCounts.length; j++) {
+            for (let i = 0; i < events.length; i++) {
+
+                if( arrayCounts[j].id === events[i].id ) {
+                    for(let k=prevIndexSame; k<arrayCounts[j].count; k++) {
+                        width = 100/arrayCounts[j].count + '%';
+                        left = parseFloat(width)*(k) + '%'
+                        events[i].style.width = width
+                        events[i].style.left = left
+                        prevIndexSame = k+1;
+                        break;
+                    }
+                }
+                else {
+                    prevIndex = j
+                    prevIndexSame = 0
+                    // break;
+                }
+
+            }
+        }
+        // console.log(events);
 
         return events
 
@@ -169,21 +191,27 @@ class App extends Component {
   eventsCrossing = () => {
       const events = this.state.events.slice()
       for(let i = 0; i < events.length; i++){
+          // console.log(events[i]);
           if(
-             ( (this.state.eventEnd < events[i].end && events[i].start > this.state.eventStart) &&
-              (events[i].end > this.state.eventStart && events[i].start < this.state.eventEnd) ) ||
-              ( (this.state.eventEnd > events[i].end && this.state.eventStart > events[i].start) &&
-              (events[i].end > this.state.eventStart && events[i].start < this.state.eventEnd) )
+             ( (this.state.eventEnd <= events[i].end && events[i].start >= this.state.eventStart) &&
+              (events[i].end >= this.state.eventStart && events[i].start <= this.state.eventEnd) ) ||
+              ( (this.state.eventEnd >= events[i].end && this.state.eventStart >= events[i].start) &&
+              (events[i].end >= this.state.eventStart && events[i].start <= this.state.eventEnd) )
           )
             {
+            console.log('events crossing');
              return events[i].id
           }
-          else return false
+          else if(i === events.length-1) {
+              console.log('events not crossing');
+              return false
+          }
       }
   }
 
   componentWillMount() {
       const events = this.sortEvents(this.state.events)
+
       this.setState({ events: events })
   }
 
